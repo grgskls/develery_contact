@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center m-4">User Management</h1>
+    {% if successMessage is defined %}
+        <div class="alert alert-success">{{ successMessage }}</div>
+    {% endif %}
+     <form action="{{ path('admin_save_user_roles') }}" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Admin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in pagination %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <input type="checkbox" name="user_roles_{{ user.id }}" {% if 'ROLE_ADMIN' in user.roles %}checked{% endif %}>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-primary">Mentés</button>
+    </form>
+
+    <div class="d-flex justify-content-center">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

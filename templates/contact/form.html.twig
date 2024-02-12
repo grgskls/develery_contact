@@ -3,25 +3,38 @@
 {% block title %}Contact Form{% endblock %}
 
 {% block body %}
-    <h1>Contact Form</h1>
-    
-    {% if successMessage is defined %}
-        <div class="alert alert-success">{{ successMessage }}</div>
-    {% endif %}
-
-    <form action="{{ path('submit_contact_form') }}" method="post">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Contact Form</div>
+                    
+                    <div class="card-body">
+                        {% if successMessage is defined %}
+                            <div class="alert alert-success">{{ successMessage }}</div>
+                        {% endif %}
+                        <form method="post">
+                            {{ form_start(form) }}
+                            <div class="form-group">
+                                {{ form_label(form.name) }}
+                                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.name) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.message) }}
+                                {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.message) }}
+                            </div>
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 {% endblock %}
